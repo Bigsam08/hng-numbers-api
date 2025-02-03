@@ -43,12 +43,11 @@ const is_perfect = (number) => {
  * return the sum
  */
 const is_digit = (number) => {
-  const negativeInt = number < 0;
   //convert number to string, split it to individuals
   //convert each digit back to number and add all
   const digits = Math.abs(number).toString().split("");
   const sum = digits.reduce((totalSum, digit) => totalSum + parseInt(digit), 0);
-  return negativeInt ? -sum : sum;
+  return sum;
 };
 
 /**
@@ -102,7 +101,7 @@ router.get("/classify-number", async (req, res) => {
   const userNumber = parseInt(req.query.number);
 
   // checks if the user passed a number to the url end-point
-  if (!userNumber) {
+  if (userNumber < 1) {
     return res.status(400).json({
       error: "Number parameter is missing",
     });
