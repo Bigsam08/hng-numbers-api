@@ -43,11 +43,12 @@ const is_perfect = (number) => {
  * return the sum
  */
 const is_digit = (number) => {
+  const negativeInt = number < 0;
   //convert number to string, split it to individuals
   //convert each digit back to number and add all
-  const digits = String(number).split("");
+  const digits = Math.abs(number).toString().split("");
   const sum = digits.reduce((totalSum, digit) => totalSum + parseInt(digit), 0);
-  return sum;
+  return negativeInt ? -sum : sum;
 };
 
 /**
@@ -70,6 +71,8 @@ const getfun_fact = async (num) => {
  * return true is number is armstrong
  */
 const isArmstrong = (number) => {
+  // all numbers from 1 - 9 is considered armstrong
+  if (number => 1 && number <=9) return true;
   const str_num = String(number);
   const length = str_num.length;
   let total = 0;
@@ -96,7 +99,7 @@ const get_properties = (number) => {
 // api endpoint
 
 router.get("/classify-number", async (req, res) => {
-  const userNumber = (req.query.number);
+  const userNumber = parseInt(req.query.number);
 
   // checks if the user passed a number to the url end-point
   if (!userNumber) {
