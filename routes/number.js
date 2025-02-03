@@ -15,7 +15,9 @@ const router = express.Router(); // creates a router instance
  */
 const is_prime = (number) => {
   if (number <= 1) return false;
-  for (let i = 2; i <= Math.sqrt(number); i++) {
+  if (number === 2) return true;
+  if (number % 2 === 0) return false;
+  for (let i = 3; i <= Math.sqrt(number); i += 2) {
     if (number % i === 0) return false;
   }
   return true;
@@ -72,7 +74,7 @@ const getfun_fact = async (num) => {
  */
 const isArmstrong = (number) => {
   // all numbers from 1 - 9 is considered armstrong
-  if (number => 1 && number <=9) return true;
+  if (number >= 1 && number <= 9) return true;
   const str_num = String(number);
   const length = str_num.length;
   let total = 0;
@@ -96,23 +98,21 @@ const get_properties = (number) => {
   return properties;
 };
 
-
-
-
 // route api endpoint
 
 router.get("/classify-number", async (req, res) => {
-  const userNumber = parseInt(req.query.number);
+  const userNumber = req.query.number;
 
   // checks if the user passed a number to the url end-point
-  if (!userNumber) {
+  if (userNumber === undefined) {
     return res.status(400).json({
-      error: "Number parameter is missing",
+      error: "query number parameter is missing",
     });
   }
+  const parsedNumber = Number(userNumber);
 
   // checks if the number passed is an integer using the parseInt method : return json error
-  if (isNaN(parseInt(userNumber))) {
+  if (isNaN(parseInt(parsedNumber))) {
     return res.status(400).json({
       number: userNumber,
       error: true,
@@ -120,14 +120,14 @@ router.get("/classify-number", async (req, res) => {
   }
 
   try {
-    const primeNumber = is_prime(userNumber);
-    const perfectNumber = is_perfect(userNumber);
-    const sumDigit = is_digit(userNumber);
-    const fun_fact = await getfun_fact(userNumber);
-    const properties = get_properties(userNumber);
+    const primeNumber = is_prime(parsedNumber);
+    const perfectNumber = is_perfect(parsedNumber);
+    const sumDigit = is_digit(parsedNumber);
+    const fun_fact = await getfun_fact(parsedNumber);
+    const properties = get_properties(parsedNumber);
 
     const responseData = {
-      number: userNumber,
+      number: parsedNumber,
       is_prime: primeNumber,
       is_perfect: perfectNumber,
       properties: properties,
