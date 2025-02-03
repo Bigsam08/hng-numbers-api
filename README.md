@@ -23,7 +23,7 @@ Returns a JSON object with the mathematical properties of the given number, alon
 - Status(200) Ok
 
 ```http
-GET http://localhost:5000/api/classify-number?number=<number>
+GET https://hng-numbers-api-4rfp.onrender.com/api/classify-number?371
 
 
 {
@@ -43,7 +43,7 @@ GET http://localhost:5000/api/classify-number?number=<number>
 - passing a non integer (status 400) Bad request
 
 ```http
-GET http://localhost:5000/api/classify-number?number=<alphabet>
+GET https://hng-numbers-api-4rfp.onrender.com/api/classify-number?number=alphabet
 {
   "number": "alphabet",
   "error": true
@@ -62,5 +62,6 @@ GET http://localhost:5000/api/classify-number?number=<alphabet>
 
 
 ## Tesing API
-- curl "http://localhost:5000/api/classify-number?number=<your number>"
-- also you can use http://localhost:5000/api/classify-number?number=<number>
+- curl "https://hng-numbers-api-4rfp.onrender.com/api/classify-number?number=<your-number>"
+- also you can use https://hng-numbers-api-4rfp.onrender.com/api/classify-number?number=<your-number>
+- to run on localhost use http://localhost:<your-running-port>/api/classify-number?number=<your-number>
