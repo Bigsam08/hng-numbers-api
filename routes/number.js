@@ -109,6 +109,7 @@ router.get("/classify-number", async (req, res) => {
       error: "query number parameter is missing",
     });
   }
+  
   const parsedNumber = Number(userNumber);
 
   // checks if the number passed is an integer using the parseInt method : return json error
@@ -117,6 +118,9 @@ router.get("/classify-number", async (req, res) => {
       number: userNumber,
       error: true,
     });
+  }
+  if(parsedNumber % 1 !== 0) {
+    return res.status(400).json({ error: "float number not valid, please provide integer only"});
   }
 
   try {
